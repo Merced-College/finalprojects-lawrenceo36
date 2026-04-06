@@ -71,7 +71,7 @@ public String csvFormat() {
 }
 
 public String toString() {
-	return "Title: " + title + "Author: " + author + "\nISBN: " + ISBN + "\nGenre: " + genre + "\nStatus: " + status;
+	return "Title: " + title + "\nAuthor: " + author + "\nISBN: " + ISBN + "\nGenre: " + genre + "\nStatus: " + status;
 
 }
 }

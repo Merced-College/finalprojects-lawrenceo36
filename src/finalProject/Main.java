@@ -35,8 +35,41 @@ public class Main {
 				break;
 			//performs add function.
 			case "2":
-				System.out.println("Feature under construction! Building 'add' logic here.");
+				System.out.println("\n --- Add a New Book ---"); 
+				//collecting data from terminal
+				System.out.println("Enter Title: ");
+				String title = input.nextLine();
+				
+				System.out.println("Enter Author: ");
+				String author = input.nextLine();
+				
+				System.out.print("Enter ISBN: ");
+				
+				//using try-catch to ensure user is inputing an integer
+				//converting inputed String to 'long' to match our book class instance
+				//temp placeholder for isbn before sending to the constructor
+				long isbn;
+				try { 
+					isbn  = Long.parseLong(input.nextLine());
+				} catch (NumberFormatException e) {
+					System.out.println("[Error] Invalid ISBN format. Input INTEGER Values Only");
+					//will prevent program form crashing if user inputs a non-integer value
+					isbn = 0; 
+				}
+				
+				System.out.print("Enter Genre: ");
+				String genre = input.nextLine();
+				
+				System.out.print("Enter status (e.g., Reading, Finished, Owned): ");
+				String status = input.nextLine();
+				
+				//creating the newly added book object using parameterized constructor
+				Book newBook = new Book(title, author, isbn, genre, status);
+				
+				//adding to the ArrayList(myLibrary after creation)
+				myManager.addBook(newBook);
 				break;
+				
 			//performs search function
 			case "3":
 				System.out.println("Feature under construction! Building 'search' logic here.");

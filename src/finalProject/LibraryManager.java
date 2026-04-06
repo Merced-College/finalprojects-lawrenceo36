@@ -60,6 +60,13 @@ public class LibraryManager {
 		System.out.println("----------------------------------------\n");
 		
 	}
+	
+	public void addBook(Book book) {
+		//adding book object to myLibrary ArrayList 
+		myLibrary.add(book);
+		//sending feedback to user so they know function was performed successfully
+		System.out.println("[Library] Succesfully Added: " + book.getTitle() + "\nBy: " + book.getAuthor() + " to your collection.");
+	}
 }
 			
 	
