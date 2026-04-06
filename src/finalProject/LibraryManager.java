@@ -120,6 +120,22 @@ public class LibraryManager {
 		//sending feedback to user so they know function was performed successfully
 		System.out.println("[Library] Succesfully Added: " + book.getTitle() + "\nBy: " + book.getAuthor() + " to your collection.");
 	}
+	
+	public boolean deleteBook(String title) {
+		//using for loop to search for the title 
+		for(int i = 0; i < myLibrary.size(); i++) {
+			//compareToIgnoreCase to ensure non case-sensitivity
+			if(myLibrary.get(i).getTitle().equalsIgnoreCase(title)) {
+				myLibrary.remove(i);
+				//saving remaining list to the file to ensure persistence
+				//saveBooks();
+				//successfully found and removed
+				return true;
+			}
+		}
+		//book title was not found
+		return false;
+	}
 }
 			
 	

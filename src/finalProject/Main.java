@@ -23,8 +23,9 @@ public class Main {
 			System.out.println("Please Choose One of the Following: ");
 			System.out.println("1. View Library");
 			System.out.println("2. Add Book to Library (In Progress)");
-			System.out.println("3. Search Book in Library (In Progress)");
-			System.out.println("4. Exit Program");
+			System.out.println("3. Delete Book from Library(In Progress)");
+			System.out.println("4. Search Book in Library (In Progress)");
+			System.out.println("5. Exit Program");
 			// reading the users input
 			String choice = input.nextLine();
 			// switch case statements to display the selected menu option relative to the users input
@@ -70,12 +71,27 @@ public class Main {
 				myManager.addBook(newBook);
 				break;
 				
-			//performs search function
 			case "3":
+				System.out.println("\n--- Delete a Book ---");
+				System.out.print("Enter the title of the book to remove: ");
+				String titleToDelete = input.nextLine();
+				
+				//calling manager to store results 
+				boolean deleted = myManager.deleteBook(titleToDelete);
+				
+				if(deleted) {
+					System.out.println("[Library] Successfully removedd: " + titleToDelete);
+				}else {
+					System.out.println("[Error] Could not find a book with that title.");
+				}
+				break;
+				
+			//performs search function
+			case "4":
 				System.out.println("Feature under construction! Building 'search' logic here.");
 				break;
 			//closes/kills program
-			case "4":
+			case "5":
 				System.out.println("Thank you for using the Library Management. Goodbye!");
 				running = false;
 				break;
