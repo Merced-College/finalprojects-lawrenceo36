@@ -48,17 +48,70 @@ public class LibraryManager {
 		}
 	}
 	
+	public void sortLibrary(ArrayList<Book> list) {
+		//if list has 0 or 1 element, list is already sorted 
+		if(list.size() <= 1) {
+			return;
+		}
+		// finding mid point of our list to allow for splitting of library
+		int mid = list.size() / 2;
+		ArrayList<Book> left = new ArrayList();
+		ArrayList<Book> right = new ArrayList();
+		
+		//diving our library into two halves 
+		for(int i = 0; i < mid; i++) {
+			left.add(list.get(i));
+		}
+		
+		for(int i = mid; i < list.size(); i++) {
+			right.add(list.get(i));
+		}
+		
+		//implementing recursion to sort both sublists of our library calling sortLibrary
+		sortLibrary(left);
+		sortLibrary(right);
+		
+		//merging our sorted sublists back into our original list
+		merge(list, left, right);
+	}
+	
+	private void merge(ArrayList<Book> list, ArrayList<Book> left, ArrayList<Book> right) {
+		int leftIndex = 0, rightIndex = 0, listIndex = 0;
+		
+		//compare our titles, placing the 'smaller' book in our list first (alphabetically)
+		while(leftIndex < left.size() && rightIndex < right.size()) {
+			//calling getTitle() to access the data that was encapsulated in the Book object
+			if(left.get(leftIndex).getTitle().compareToIgnoreCase(right.get(rightIndex).getTitle()) <= 0) {
+				list.set(listIndex++ ,  left.get(leftIndex++));
+			} else {
+				list.set(listIndex++,  right.get(rightIndex++));
+			}
+		}
+		//copying the remaining elements from the sublist on the left
+		while(leftIndex < left.size()) {
+			list.set(listIndex++, left.get(leftIndex++));
+		}
+		//copying the remaining elements from the sublist on the right
+		while(rightIndex < right.size()) {
+			list.set(listIndex++,  right.get(rightIndex++));
+		}
+		
+	}
+	
 	public void displayLibrary() {
 		System.out.println("\n--- Current Library Collection ---");
+		
 		if (myLibrary.isEmpty()) {
 			System.out.println("The library is empty. Please add some books!");
 		}else {
+			//calling our sorting algo (0(n log n) before printing
+			sortLibrary(myLibrary);
+			//using the books toString() to display formatted data
 			for(Book b : myLibrary) {
 				System.out.println(b.toString());
+				System.out.println("----------------------------------------\n");
 			}
 		}
-		System.out.println("----------------------------------------\n");
-		
 	}
 	
 	public void addBook(Book book) {

@@ -36,7 +36,7 @@ public class Main {
 			//performs add function.
 			case "2":
 				System.out.println("\n --- Add a New Book ---"); 
-				//collecting data from terminal
+				//collecting data(user input) from terminal
 				System.out.println("Enter Title: ");
 				String title = input.nextLine();
 				
