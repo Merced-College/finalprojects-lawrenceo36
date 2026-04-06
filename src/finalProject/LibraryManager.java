@@ -3,7 +3,9 @@ package finalProject;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
-import java.io.FileNotFoundException; 
+import java.io.FileNotFoundException;
+import java.io.IOException; 
+import java.io.PrintWriter;
 /*
  * Author: Lawrence Oro
  * Class: LibraryManager.java
@@ -32,7 +34,8 @@ public class LibraryManager {
 				String[] data = line.split(",");
 				if (data.length == 5) {
 					//creating our data unit(book)
-					Book tempBook = new Book(data[0].trim(), data[1].trim(), Long.parseLong(data[2].trim()),
+					Book tempBook = new Book(data[0].trim(), data[1].trim(), 
+							Long.parseLong(data[2].trim()),
 							data[3].trim(), data[4].trim());
 					//temp holding our made object
 					myLibrary.add(tempBook);
@@ -118,7 +121,27 @@ public class LibraryManager {
 		//adding book object to myLibrary ArrayList 
 		myLibrary.add(book);
 		//sending feedback to user so they know function was performed successfully
+		//immediately persisting our data to the csv file in case of crashes
+		saveBooks();
 		System.out.println("[Library] Succesfully Added: " + book.getTitle() + "\nBy: " + book.getAuthor() + " to your collection.");
+	}
+	/*Author: Lawrence Oro 
+	 * 
+	 * This method takes every Book object in myLibrary ArrayList 
+	 * and writes it into 'books.txt' file. This ensures that books
+	 * added are saved even after session is closed and, loaded once started again.
+	 * Using our csvFormat() method from the Book class ensures file stays in 
+	 * the format that our loadBooks() method can read*/
+	
+	public void saveBooks() {
+		try(PrintWriter writer = new PrintWriter(new File(fileName))){
+			for(Book b : myLibrary) {
+				//using csv format defined in our Book class
+				writer.println(b.csvFormat());
+			}
+		} catch(IOException e) {
+			System.out.println("[System Error] Could not save to file: " + e.getMessage());
+		}
 	}
 	
 	public boolean deleteBook(String title) {
