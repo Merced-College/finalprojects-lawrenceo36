@@ -23,7 +23,7 @@ public class LibraryManager {
 	//defining the data structure(ArrayList)
 	private ArrayList<Book> myLibrary = new ArrayList<>();
 	private String fileName = "books.txt"; 
-	private Stack<Book> undoStack = newStack<>();
+	private Stack<Book> undoStack = new Stack<>();
 	
 	public void loadBooks() {
 		//using scanner to read into file try-with allows for automatic closing of the scanner
@@ -105,14 +105,12 @@ public class LibraryManager {
 	/*
 	 * Author: Lawrence Oro
 	 * Algorithm: Binary Search
-	 * Complexity: 0(log n)
+	 * Complexity: O(log n)
 	 * 
 	 * Description: This method searches for a book inside collection by its title.
 	 * Since the library is sorted alphabetically, we check the middle element and 
 	 * eliminate half of the remaining books in our collection with every comparison. */
 	public Book searchByTitle(String targetTitle) {
-		//ensuring list is sorted before searching 
-		sortLibrary(myLibrary);
 		
 		int low = 0;
 		int high = myLibrary.size() - 1;
@@ -146,7 +144,7 @@ public class LibraryManager {
 		if (myLibrary.isEmpty()) {
 			System.out.println("The library is empty. Please add some books!");
 		}else {
-			//calling our sorting algo (0(n log n) before printing
+			//calling our sorting algo (O(n log n) before printing
 			sortLibrary(myLibrary);
 			//using the books toString() to display formatted data
 			for(Book b : myLibrary) {
@@ -159,6 +157,7 @@ public class LibraryManager {
 	public void addBook(Book book) {
 		//adding book object to myLibrary ArrayList 
 		myLibrary.add(book);
+		sortLibrary(myLibrary);
 		//sending feedback to user so they know function was performed successfully
 		//immediately persisting our data to the csv file in case of crashes
 		saveBooks();
@@ -209,7 +208,7 @@ public class LibraryManager {
 	/*
 	 * Author: Lawrence Oro
 	 * DataStructure: Stack (java.util.Stack)
-	 * Algorithm Complexity: 0(1) - Constant Time
+	 * Algorithm Complexity: O(1) - Constant Time
 	 * Description: This method implements an "undo" feature for deleted books using a stack
 	 * When a book is removed via deleteBook(), it is then 'pushed' onto the undo stack. This method will then pop
 	 * that book off the top of the stack and re-adds it to the library.*/

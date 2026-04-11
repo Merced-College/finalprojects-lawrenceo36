@@ -81,7 +81,7 @@ public class Main {
 				boolean deleted = myManager.deleteBook(titleToDelete);
 				
 				if(deleted) {
-					System.out.println("[Library] Successfully removedd: " + titleToDelete);
+					System.out.println("[Library] Successfully removed: " + titleToDelete);
 				} else {
 					System.out.println("[Error] Could not find a book with that title.");
 				}
@@ -104,7 +104,7 @@ public class Main {
 					System.out.println("\n[Success] Book found in your collection:");
 					System.out.println(foundBook.toString());
 				} else {
-					System.out.println("\n[Notice] '" + searchTitle + "'is not in your library.");
+					System.out.println("\n[Notice] '" + searchTitle + "' is not in your library.");
 				}
 				break;
 			//closes/kills program
