@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException; 
 import java.io.PrintWriter;
+import java.util.Stack;
 /*
  * Author: Lawrence Oro
  * Class: LibraryManager.java
@@ -20,8 +21,9 @@ import java.io.PrintWriter;
  */
 public class LibraryManager {
 	//defining the data structure(ArrayList)
-	private ArrayList<Book> myLibrary = new ArrayList();
+	private ArrayList<Book> myLibrary = new ArrayList<>();
 	private String fileName = "books.txt"; 
+	private Stack<Book> undoStack = newStack<>();
 	
 	public void loadBooks() {
 		//using scanner to read into file try-with allows for automatic closing of the scanner
@@ -58,8 +60,8 @@ public class LibraryManager {
 		}
 		// finding mid point of our list to allow for splitting of library
 		int mid = list.size() / 2;
-		ArrayList<Book> left = new ArrayList();
-		ArrayList<Book> right = new ArrayList();
+		ArrayList<Book> left = new ArrayList<>();
+		ArrayList<Book> right = new ArrayList<>();
 		
 		//diving our library into two halves 
 		for(int i = 0; i < mid; i++) {
@@ -143,21 +145,50 @@ public class LibraryManager {
 			System.out.println("[System Error] Could not save to file: " + e.getMessage());
 		}
 	}
-	
+	/*
+	 * Author: Lawrence Oro
+	 * Function: deleteBook(String title)
+	 * 
+	 * Description: Searches the ArrayList for a book with matching title
+	 * and removes it from the list. After deletion calling saveBooks() updates the text file.*/
 	public boolean deleteBook(String title) {
 		//using for loop to search for the title 
 		for(int i = 0; i < myLibrary.size(); i++) {
 			//compareToIgnoreCase to ensure non case-sensitivity
 			if(myLibrary.get(i).getTitle().equalsIgnoreCase(title)) {
+				//Push: saving the book object into the stack before removal
+				undoStack.push(myLibrary.get(i));
 				myLibrary.remove(i);
 				//saving remaining list to the file to ensure persistence
-				//saveBooks();
+				saveBooks();
 				//successfully found and removed
 				return true;
 			}
 		}
 		//book title was not found
 		return false;
+	}
+	
+	/*
+	 * Author: Lawrence Oro
+	 * DataStructure: Stack (java.util.Stack)
+	 * Algorithm Complexity: 0(1) - Constant Time
+	 * Description: This method implements an "undo" feature for deleted books using a stack
+	 * When a book is removed via deleteBook(), it is then 'pushed' onto the undo stack. This method will then pop
+	 * that book off the top of the stack and re-adds it to the library.*/
+	public void undoDelete() {
+		if (!undoStack.isEmpty()) {
+			//pop: taking the 'top' book off the stack (the last book deleted)
+			Book restoredBook = undoStack.pop(); 
+			//adding the book back into the main arraylist
+			myLibrary.add(restoredBook);
+			//persisting the change so the book is saved within the txt file
+			saveBooks();
+			
+			System.out.println("[Library] Undo Successful! Restored: " + restoredBook.getTitle());
+		} else {
+			System.out.println("[Error] There are no deleted book to restore.");
+		}
 	}
 }
 			

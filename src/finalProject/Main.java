@@ -24,8 +24,9 @@ public class Main {
 			System.out.println("1. View Library");
 			System.out.println("2. Add Book to Library (In Progress)");
 			System.out.println("3. Delete Book from Library(In Progress)");
-			System.out.println("4. Search Book in Library (In Progress)");
-			System.out.println("5. Exit Program");
+			System.out.println("4. Undo the Last Deletion");
+			System.out.println("5. Search Book in Library (In Progress)");
+			System.out.println("6. Exit Program");
 			// reading the users input
 			String choice = input.nextLine();
 			// switch case statements to display the selected menu option relative to the users input
@@ -86,12 +87,16 @@ public class Main {
 				}
 				break;
 				
-			//performs search function
 			case "4":
+				myManager.undoDelete();
+				break;
+				
+			//performs search function
+			case "5":
 				System.out.println("Feature under construction! Building 'search' logic here.");
 				break;
 			//closes/kills program
-			case "5":
+			case "6":
 				System.out.println("Thank you for using the Library Management. Goodbye!");
 				running = false;
 				break;
