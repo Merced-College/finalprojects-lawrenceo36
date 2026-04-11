@@ -22,10 +22,10 @@ public class Main {
 			System.out.println("\n============ Main Menu ==============");
 			System.out.println("Please Choose One of the Following: ");
 			System.out.println("1. View Library");
-			System.out.println("2. Add Book to Library (In Progress)");
-			System.out.println("3. Delete Book from Library(In Progress)");
+			System.out.println("2. Add Book to Library");
+			System.out.println("3. Delete Book from Library");
 			System.out.println("4. Undo the Last Deletion");
-			System.out.println("5. Search Book in Library (In Progress)");
+			System.out.println("5. Search Book in Library");
 			System.out.println("6. Exit Program");
 			// reading the users input
 			String choice = input.nextLine();
@@ -82,7 +82,7 @@ public class Main {
 				
 				if(deleted) {
 					System.out.println("[Library] Successfully removedd: " + titleToDelete);
-				}else {
+				} else {
 					System.out.println("[Error] Could not find a book with that title.");
 				}
 				break;
@@ -93,7 +93,19 @@ public class Main {
 				
 			//performs search function
 			case "5":
-				System.out.println("Feature under construction! Building 'search' logic here.");
+				System.out.println("\n--- Search Library ---");
+				System.out.print("Enter the title of the book you're looking for: ");
+				
+				String searchTitle = input.nextLine();
+				
+				Book foundBook = myManager.searchByTitle(searchTitle);
+				
+				if(foundBook != null) {
+					System.out.println("\n[Success] Book found in your collection:");
+					System.out.println(foundBook.toString());
+				} else {
+					System.out.println("\n[Notice] '" + searchTitle + "'is not in your library.");
+				}
 				break;
 			//closes/kills program
 			case "6":

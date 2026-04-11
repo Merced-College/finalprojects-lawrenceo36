@@ -102,6 +102,43 @@ public class LibraryManager {
 		}
 		
 	}
+	/*
+	 * Author: Lawrence Oro
+	 * Algorithm: Binary Search
+	 * Complexity: 0(log n)
+	 * 
+	 * Description: This method searches for a book inside collection by its title.
+	 * Since the library is sorted alphabetically, we check the middle element and 
+	 * eliminate half of the remaining books in our collection with every comparison. */
+	public Book searchByTitle(String targetTitle) {
+		//ensuring list is sorted before searching 
+		sortLibrary(myLibrary);
+		
+		int low = 0;
+		int high = myLibrary.size() - 1;
+		
+		while(low <= high) {
+			int mid = (low + high) / 2;
+			String midTitle = myLibrary.get(mid).getTitle();
+			
+			int comparison = midTitle.compareToIgnoreCase(targetTitle);
+			
+			if(comparison == 0) {
+				//found title
+				return myLibrary.get(mid);
+			}
+			else if(comparison < 0) {
+				//searching right half of list
+				low = mid + 1;
+			}
+			else {
+				//searching left half of list
+				high = mid - 1;
+			}
+		}
+		//didnt find title
+		return null;
+	}
 	
 	public void displayLibrary() {
 		System.out.println("\n--- Current Library Collection ---");
