@@ -6,6 +6,7 @@ Upload your final project to this github repo.
 Make a README file for your project and put the infor about your project in it - your name, date and what your program does.
 
 #Project Info
+
 Name: Lawrence Oro 
 
 Date: 3-23-26
@@ -41,6 +42,7 @@ program will also contain sorting to help with searching of data. Lastly they wi
 (Merge Sort(RECURSIVE)) Automatically sorts the library alphabetically by title before it is displayed to the user. This divide-and-conquer algorithm operates at an O(n log n ) time complexity. 
 
 #How to Run the Program 
+
 1.Open your terminal.
 2. Navigate to the 'src' folder containing the project files.
 3. Compile the Java files by running: '''bash
