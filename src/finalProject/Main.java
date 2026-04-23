@@ -10,8 +10,7 @@ public class Main {
 		Scanner input = new Scanner(System.in);
 		boolean running = true;
 		
-		System.out.println("Welcome to your Library Management System! ");
-		
+		System.out.println(MenuConstants.WELCOME_MSG);
 // loading users existing data
 		System.out.println("Loading your library...");
 		myManager.loadBooks();
@@ -19,38 +18,37 @@ public class Main {
 		// while loop to continue running program continuously prompting the user to make a selection from the menu 
 		//ending only when user chooses to
 		while(running) {
-			System.out.println("\n============ Main Menu ==============");
-			System.out.println("Please Choose One of the Following: ");
-			System.out.println("1. View Library");
-			System.out.println("2. Add Book to Library");
-			System.out.println("3. Delete Book from Library");
-			System.out.println("4. Undo the Last Deletion");
-			System.out.println("5. Search Book in Library");
-			System.out.println("6. Exit Program");
+			System.out.println(MenuConstants.MAIN_MENU);
+			System.out.print("> Selection: ");
 			// reading the users input
 			String choice = input.nextLine();
+			
 			// switch case statements to display the selected menu option relative to the users input
 			switch (choice) {
+			
 			case "1":
 				//displays library 
 				myManager.displayLibrary();
 				break;
+				
 			//performs add function.
 			case "2":
-				System.out.println("\n --- Add a New Book ---"); 
+				System.out.println("\n --- Add a New Book ---");
+				
 				//collecting data(user input) from terminal
-				System.out.println("Enter Title: ");
+				System.out.print("Enter Title: ");
 				String title = input.nextLine();
 				
-				System.out.println("Enter Author: ");
+				System.out.print("Enter Author: ");
 				String author = input.nextLine();
-				
-				System.out.print("Enter ISBN: ");
 				
 				//using try-catch to ensure user is inputing an integer
 				//converting inputed String to 'long' to match our book class instance
 				//temp placeholder for isbn before sending to the constructor
-				long isbn;
+				System.out.print("Enter ISBN: ");
+				long isbn = input.nextLong();
+				input.nextLine();
+				
 				try { 
 					isbn  = Long.parseLong(input.nextLine());
 				} catch (NumberFormatException e) {
@@ -66,12 +64,14 @@ public class Main {
 				String status = input.nextLine();
 				
 				//creating the newly added book object using parameterized constructor
-				Book newBook = new Book(title, author, isbn, genre, status);
+				//and adding it into the list
+				myManager.addBook(new Book(title, author, isbn, genre, status));
 				
 				//adding to the ArrayList(myLibrary after creation)
-				myManager.addBook(newBook);
+				System.out.println("\n[Library] Success! '" + title + "' has been added to collection.");
 				break;
 				
+			//deletes book from library
 			case "3":
 				System.out.println("\n--- Delete a Book ---");
 				System.out.print("Enter the title of the book to remove: ");
@@ -87,34 +87,35 @@ public class Main {
 				}
 				break;
 				
+			//performs undo for accidental deletion	
 			case "4":
 				myManager.undoDelete();
+				System.out.println("\n[Library] Last deletion undone.");
 				break;
 				
 			//performs search function
 			case "5":
 				System.out.println("\n--- Search Library ---");
 				System.out.print("Enter the title of the book you're looking for: ");
-				
 				String searchTitle = input.nextLine();
 				
-				Book foundBook = myManager.searchByTitle(searchTitle);
-				
-				if(foundBook != null) {
-					System.out.println("\n[Success] Book found in your collection:");
-					System.out.println(foundBook.toString());
-				} else {
-					System.out.println("\n[Notice] '" + searchTitle + "' is not in your library.");
+				try {
+					Book foundBook = myManager.searchByTitle(searchTitle);
+					System.out.println("\n[Success] Found: " + foundBook.toString());
+				} catch (LibraryException e) {
+					//catches error message in LibraryManger.java
+					System.out.println("\n[Error]" + e.getMessage());
 				}
 				break;
+				
 			//closes/kills program
 			case "6":
-				System.out.println("Thank you for using the Library Management. Goodbye!");
+				System.out.println(MenuConstants.EXIT_MSG);
 				running = false;
 				break;
 			//default handles if user were to choose anything other than the given options
 			default: 
-				System.out.println("Invalid selction! Please try again!");
+				System.out.println(MenuConstants.INVALID_CHOICE);
 				break;
 			}
 			

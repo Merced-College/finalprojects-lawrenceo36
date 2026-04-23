@@ -30,7 +30,7 @@ public class LibraryManager {
 		try (Scanner scanner = new Scanner(new File(fileName))){
 			while(scanner.hasNextLine()) {
 				String line = scanner.nextLine();
-				if(line.isEmpty()) 
+				if(line.trim().isEmpty()) 
 					continue;
 				//parsing our data to make for easy readability
 				String[] data = line.split(",");
@@ -52,7 +52,16 @@ public class LibraryManager {
 			System.out.println("Could not load library :( ." + e.getMessage());
 		}
 	}
-	
+	/*
+	 * Author: Lawrence Oro 
+	 * Algorithm: Merge Sort(Recursive)
+	 * 
+	 * Description: 
+	 * This algorithm sorts the library alphabetically by title. Using
+	 * a divide-and-conquer approach, recursively splitting the list until
+	 * it can be merged back in order
+	 * Time Complexity: O(n log n)
+	 * */
 	public void sortLibrary(ArrayList<Book> list) {
 		//if list has 0 or 1 element, list is already sorted 
 		if(list.size() <= 1) {
@@ -105,12 +114,14 @@ public class LibraryManager {
 	/*
 	 * Author: Lawrence Oro
 	 * Algorithm: Binary Search
-	 * Complexity: O(log n)
+	 * Time Complexity: O(log n)
 	 * 
 	 * Description: This method searches for a book inside collection by its title.
-	 * Since the library is sorted alphabetically, we check the middle element and 
-	 * eliminate half of the remaining books in our collection with every comparison. */
-	public Book searchByTitle(String targetTitle) {
+	 * Since the library is sorted alphabetically (Merge Sort) , we check the middle element and 
+	 * eliminate half of the remaining books in our collection with every comparison until finding
+	 * our targetTitle.
+	 *  */
+	public Book searchByTitle(String targetTitle) throws LibraryException {
 		
 		int low = 0;
 		int high = myLibrary.size() - 1;
@@ -118,24 +129,20 @@ public class LibraryManager {
 		while(low <= high) {
 			int mid = (low + high) / 2;
 			String midTitle = myLibrary.get(mid).getTitle();
-			
 			int comparison = midTitle.compareToIgnoreCase(targetTitle);
 			
 			if(comparison == 0) {
 				//found title
 				return myLibrary.get(mid);
-			}
-			else if(comparison < 0) {
+			} else if(comparison < 0) {
 				//searching right half of list
 				low = mid + 1;
-			}
-			else {
+			} else {
 				//searching left half of list
 				high = mid - 1;
 			}
 		}
-		//didnt find title
-		return null;
+			throw new LibraryException("Book titled'" + targetTitle + "' was not found in collection.");
 	}
 	
 	public void displayLibrary() {
@@ -183,10 +190,15 @@ public class LibraryManager {
 	}
 	/*
 	 * Author: Lawrence Oro
-	 * Function: deleteBook(String title)
+	 * Algorithm: Linear Search
 	 * 
-	 * Description: Searches the ArrayList for a book with matching title
-	 * and removes it from the list. After deletion calling saveBooks() updates the text file.*/
+	 * Description:
+	 * Iterating through the ArrayList to find a book title to remove.
+	 * Once found, the book is then pushed onto a Stack to allow for 
+	 * the Undo Feature
+	 * 
+	 * Time Complexity: O(n)
+	 * */
 	public boolean deleteBook(String title) {
 		//using for loop to search for the title 
 		for(int i = 0; i < myLibrary.size(); i++) {

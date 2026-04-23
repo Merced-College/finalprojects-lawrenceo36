@@ -1,5 +1,12 @@
 package finalProject;
-
+/*
+ * Author: Lawrence Oro 
+ * Class: Book.java
+ * 
+ * Description:
+ * This class represents our core data unit for the program. It stores
+ * informations related to individual books(Title, Author, ISBN, etc.). 
+ * It includes a custom csvFormat method to support persistent data storage in a text file*/
 public class Book {
 	//instance variables for book
 	private String title;

@@ -4,10 +4,10 @@ package finalProject;
  * Class: MenuConstants.java
  * 
  * Description: 
- * This class stores all of the static text for the UI. 
- * Centralizing these strings rather than leaving in main
- * demonstrates better Abstraction by separating the view of our program 
- * to the logic.*/
+ * This class centralizes all UI strings. By separating 
+ * the 'View' (text) from the 'Controller' (logic), 
+ * in doing so we demonstrate high-level abstraction 
+ * and make for easy software to maintain or reuse in future versions.*/
 public class MenuConstants {
 	public static final String WELCOME_MSG = "Welcome to your Library Management System!";
 	public static final String MAIN_MENU = "\n============ Main Menu ==============\n" +
@@ -15,7 +15,7 @@ public class MenuConstants {
 											"1. View Library\n" +
 											"2. Add Book to Library\n" +
 											"3. Delete Book from Library\n" + 
-											"4.Undo the Last Deletion\n" +
+											"4. Undo the Last Deletion\n" +
 											"5. Search Book in Library\n" +
 											"6. Exit Program";
 	
