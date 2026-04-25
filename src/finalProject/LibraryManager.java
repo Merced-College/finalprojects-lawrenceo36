@@ -37,8 +37,7 @@ public class LibraryManager {
 				if (data.length == 5) {
 					//creating our data unit(book)
 					Book tempBook = new Book(data[0].trim(), data[1].trim(), 
-							Long.parseLong(data[2].trim()),
-							data[3].trim(), data[4].trim());
+							data[2].trim(), data[3].trim(), data[4].trim());
 					//temp holding our made object
 					myLibrary.add(tempBook);
 				}

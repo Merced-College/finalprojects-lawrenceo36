@@ -42,20 +42,8 @@ public class Main {
 				System.out.print("Enter Author: ");
 				String author = input.nextLine();
 				
-				//using try-catch to ensure user is inputing an integer
-				//converting inputed String to 'long' to match our book class instance
-				//temp placeholder for isbn before sending to the constructor
 				System.out.print("Enter ISBN: ");
-				long isbn = input.nextLong();
-				input.nextLine();
-				
-				try { 
-					isbn  = Long.parseLong(input.nextLine());
-				} catch (NumberFormatException e) {
-					System.out.println("[Error] Invalid ISBN format. Input INTEGER Values Only");
-					//will prevent program form crashing if user inputs a non-integer value
-					isbn = 0; 
-				}
+				String isbn = input.nextLine();
 				
 				System.out.print("Enter Genre: ");
 				String genre = input.nextLine();

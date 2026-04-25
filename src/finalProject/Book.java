@@ -11,20 +11,20 @@ public class Book {
 	//instance variables for book
 	private String title;
 	private String author;
-	private long ISBN;
+	private String ISBN;
 	private String genre;
 	private String status;
 	//default constructor
 	public Book() {
 		this.title = "Unknown";
 		this.author = "Unknown";
-		this.ISBN = 123;
+		this.ISBN = "Unknown";
 		this.genre = "Unknown";
 		this.status = "Unknown";
 	}
 	
 	//parameterized constructor
-public Book(String title, String author, long ISBN, String genre, String status) {
+public Book(String title, String author, String ISBN, String genre, String status) {
 	this.title = title;
 	this.author = author;
 	this.ISBN = ISBN;
@@ -49,11 +49,11 @@ public void setAuthor(String author) {
 	this.author = author;
 }
 
-public long getISBN() {
+public String getISBN() {
 	return ISBN;
 }
 
-public void setISBN(long ISBN) {
+public void setISBN(String ISBN) {
 	this.ISBN = ISBN;
 }
 
